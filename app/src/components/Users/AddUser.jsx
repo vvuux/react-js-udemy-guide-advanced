@@ -16,6 +16,12 @@ const AddUser = props => {
         if (+enterAge < 1){
             return
         }
+        props.addUserHandler({
+            id: Math.random().toString(),
+            name: enterUserName,
+            age: enterAge
+        })
+
         setEnterAge('');
         setEnterUserName('');
     }
