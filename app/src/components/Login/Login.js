@@ -5,6 +5,7 @@ import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 
 const Login = (props) => {
+  console.log("render");
   const [enteredEmail, setEnteredEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -12,9 +13,20 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes("@") && enteredPassword.trim().length > 6
-    )
+    // https://dev.to/klaudiaj/react-hook-useeffect-simplified-flow-1j63
+
+    const identifier = setTimeout(() => {
+      console.log("Checking form validity!");
+      setFormIsValid(
+        enteredEmail.includes("@") && enteredPassword.trim().length > 6
+      )  
+    }, 1000)
+
+    return () => {
+      console.log("CLEANUP");
+      clearTimeout(identifier)
+    }
+
   }, [enteredEmail, enteredPassword])
 
   const emailChangeHandler = (event) => {
